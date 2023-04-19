@@ -1,16 +1,17 @@
 import { useContext } from "react";
 import { AppContext } from "../App";
+import { ProductType } from "../types/types";
 
 const ProductsList = () => {
   const ctx = useContext(AppContext);
 
-  const handleSelection = (potion: any) => {
+  const handleSelection = (potion: ProductType) => {
     if(ctx?.gemas as number > 0 && ctx?.gemas as number >= potion.precio) {
       ctx?.setGemas((gemas: number) => gemas - potion.precio);
-      ctx?.selectedProducts.push(potion)
-      ctx?.disabled.push(potion.id);
+      ctx?.selectedProducts.push(potion);
+      ctx?.disabled.push(potion.categoria);
     }
-  }
+  };
 
   return (
     <div className="flex flex-row justify-start w-full gap-4 flex-wrap">
@@ -43,12 +44,12 @@ const ProductsList = () => {
             </div>
             <div className="flex w-full">
               <button
-                className={`flex flex-row w-full justify-center rounded-xl p-1 
-                  ${(ctx.gemas > 0 && potion.precio <= ctx.gemas && !ctx?.disabled.includes(potion.id)) 
-                    ? 'bg-purple-700 text-white' 
+                className={`flex flex-row w-full justify-center rounded-xl p-1 ease-in duration-200
+                  ${(ctx.gemas > 0 && potion.precio <= ctx.gemas && !ctx?.disabled.includes(potion.categoria)) 
+                    ? 'bg-purple-700 hover:bg-purple-500 hover:scale-105 text-white' 
                     : 'bg-gray-600 cursor-default text-slate-400'}`
                 }
-                disabled={ctx?.disabled.includes(potion.id)}
+                disabled={ctx?.disabled.includes(potion.categoria)}
                 onClick={() => handleSelection(potion)}
               >
                 Agregar

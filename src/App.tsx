@@ -2,20 +2,23 @@ import { createContext, useEffect, useState } from "react";
 import CarritoComponent from "./components/CarritoComponent";
 import HeaderComponent from "./components/HeaderComponent";
 import ProductsList from "./components/ProductsList";
-import { AppContextType } from "./types/types";
+import { AppContextType, ProductType } from "./types/types";
 
 function App() {
   const [showCarrito, setShowCarrito] = useState(false);
   const [gemas, setGemas] = useState(3);
-  const [products, setProducts] = useState<any>();
+  const [products, setProducts] = useState<ProductType[]>();
   const [selectedProducts, setSelectedProducts] = useState([])
-  const [disabled, setDisabled] = useState<number[]>([]);
+  const [disabled, setDisabled] = useState<string[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:3001/productos")
+    const getData = async() => {
+    await fetch("http://localhost:3001/productos")
       .then(res => res.json())
       .then(data => setProducts(data))
       .catch(err => console.error(err));
+    };
+    getData();
   }, []);
 
   return (

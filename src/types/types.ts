@@ -1,4 +1,4 @@
-interface ProductModel {
+export type ProductType = {
   id: number,
   nombre: string,
   precio: number,
@@ -12,9 +12,9 @@ export type AppContextType = {
   setShowCarrito: Function,
   gemas: number,
   setGemas: Function,
-  products: ProductModel[],
-  selectedProducts: ProductModel[],
+  products?: ProductType[],
+  selectedProducts: ProductType[],
   setSelectedProducts: Function,
-  disabled: number[],
+  disabled: string[],
   setDisabled: Function
 }
